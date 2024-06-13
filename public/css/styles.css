@@ -1,0 +1,22 @@
+.custom-bg {
+    background-color: #f2f2f2;
+}
+.login-image {
+    background-position:center;
+    background-size:cover;
+}
+
+.primay-color {
+    background-color: #a6da9a;
+}
+
+.custom-btn-primary {
+    background-color: #a6da9a;
+    border-color: #a6da9a;
+}
+
+.bg-custom{
+    background-color:#507548;
+    background-image:linear-gradient(180deg,#507548 10%,#508046 100%);
+    background-size:cover
+}

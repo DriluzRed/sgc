@@ -18,6 +18,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/select2.min.css') }}" rel="stylesheet">
 
     <!-- Favicon -->
     <link href="{{ asset('img/favicon.png') }}" rel="icon" type="image/png">
@@ -51,15 +52,14 @@
         <div class="sidebar-heading">
             {{ __('home.Modules') }}
         </div>
-        <li class="nav-item">
+        <li class="nav-item {{ request()->is('projects*') ? 'active' : '' }}">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProjects" aria-expanded="true" aria-controls="collapseProjects">
                 <i class="fas fa-fw fa-list"></i>
                 <span>{{ __('home.Projects Panel') }}</span>
             </a>
-            <div id="collapseProjects" class="collapse" aria-labelledby="headingProjects" data-parent="#accordionSidebar">
+            <div id="collapseProjects" class="collapse {{ request()->is('projects*') ? 'show' : '' }}" aria-labelledby="headingProjects" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="{{ route('profile') }}">{{ __('home.Projects') }}</a>
-                   
+                    <a class="collapse-item {{ request()->is('projects') ? 'active' : '' }}" href="{{ route('projects.index') }}">{{ __('home.Projects') }}</a>
                 </div>
             </div>
         </li>
@@ -252,6 +252,15 @@
 <script src="{{ asset('vendor/bootstrap/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
 <script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
+<script src="{{asset('js/Sortable.min.js')}}"></script>
+<script src="{{asset('js/select2.min.js')}}"></script>
+
+<script>
+    $(document).ready(function() {
+        $('.select2').select2();
+    });
+</script>
+@yield('scripts')
 
 </body>
 </html>

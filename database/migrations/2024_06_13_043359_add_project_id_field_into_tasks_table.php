@@ -11,11 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('projects_tasks', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('project_id');
-            $table->unsignedBigInteger('task_id');
-            $table->timestamps();
+        Schema::table('tasks', function (Blueprint $table) {
+            $table->unsignedBigInteger('project_id')->after('id');
+            $table->foreign('project_id')->references('id')->on('projects');
         });
     }
 
@@ -24,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('projects_tasks');
+        //
     }
 };

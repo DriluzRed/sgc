@@ -1,5 +1,4 @@
-@extends('layouts.app
-')
+@extends('layouts.app')
 
 @section('main-content')
     <h1 class="h3 mb-4 text-gray-800">{{ __('profile.Profile') }}</h1>

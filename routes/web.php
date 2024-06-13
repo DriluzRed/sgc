@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CssController;
+use App\Http\Controllers\ProjectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,8 +23,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/profile', 'ProfileController@index')->name('profile');
     Route::put('/profile', 'ProfileController@update')->name('profile.update');
+
+
+    Route::resource('projects', ProjectController::class);
+    Route::post('/projects/{project}/updateStatus', [ProjectController::class, 'updateStatus']);
+    Route::get('/projects/{project}/tasks', [ProjectController::class, 'getTasks']);
 });
-
-Route::get('/css', [CssController::class, 'generateCss']);
-
 Auth::routes();

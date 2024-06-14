@@ -34,4 +34,21 @@ class ProjectController extends Controller
     {
         return response()->json($project->tasks->groupBy('status'));
     }
+
+    public function comments(Request $request, $project)
+    {
+        $project = Project::find($project);
+        $project->comments()->create([
+            'project_id' => $project->id,
+            'comment' => $request->input('comment'),
+            'user_id' => auth()->user()->id,
+        ]);
+
+        return response()->json(['message' => 'Comentario creado', 'project_id' => $project->project_id]);
+    }
+
+    public function getComments(Project $project)
+    {
+        return response()->json(['message', 'Comentarios obtenidos', 'comments' => $project->comments]);
+    }
 }

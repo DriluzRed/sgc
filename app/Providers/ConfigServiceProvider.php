@@ -12,9 +12,9 @@ class ConfigServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        // $config = DB::table('configurations')->get();
-        // $config = $config->pluck('value', 'key');
-        // View::share('config', $config);
+        $config = DB::table('configurations')->get();
+        $config = $config->pluck('value', 'key');
+        View::share('config', $config);
     }
 
     /**

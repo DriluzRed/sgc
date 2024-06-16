@@ -16,4 +16,5 @@ return [
     'Projects' => 'Proyectos',
     'Manage Clients' => 'Administrar Clientes',
     'Clients' => 'Clientes',
+    'Invoices' => 'Facturas',
 ];

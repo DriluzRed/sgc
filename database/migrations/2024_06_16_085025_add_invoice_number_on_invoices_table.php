@@ -11,8 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('clients', function (Blueprint $table) {
-            $table->string('ruc')->nullable();
+        Schema::table('invoices', function (Blueprint $table) {
+            $table->string('invoice_number')->after('id');
+            $table->foreignId('client_id')->after('invoice_number')->constrained();
+            $table->datetime('invoice_date')->after('client_id');
         });
     }
 

@@ -30,4 +30,15 @@ class Project extends Model
     {
         return $this->hasMany('App\Models\Comment');
     }
+
+
+    public function client()
+    {
+        return $this->belongsTo('App\Models\Client');
+    }
+
+    public function invoices()
+    {
+        return $this->hasMany('App\Models\Invoice');
+    }
 }

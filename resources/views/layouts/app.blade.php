@@ -19,6 +19,7 @@
     <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
     <link href="{{ asset('css/select2.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/datatables.min.css') }}" rel="stylesheet">
 
     <!-- Favicon -->
     <link href="{{ asset('img/favicon.png') }}" rel="icon" type="image/png">
@@ -52,7 +53,7 @@
         <div class="sidebar-heading">
             {{ __('home.Modules') }}
         </div>
-        <li class="nav-item {{ request()->is('projects*') ? 'active' : '' }}">
+        <li class="nav-item {{ request()->is(['projects*','invoices*']) ? 'active' : '' }}">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProjects" aria-expanded="true" aria-controls="collapseProjects">
                 <i class="fas fa-fw fa-list"></i>
                 <span>{{ __('home.Projects Panel') }}</span>
@@ -62,16 +63,20 @@
                     <a class="collapse-item {{ request()->is('projects') ? 'active' : '' }}" href="{{ route('projects.index') }}">{{ __('home.Projects') }}</a>
                 </div>
             </div>
+            <div id="collapseProjects" class="collapse {{ request()->is('invoices*') ? 'show' : '' }}" aria-labelledby="headingInvoices" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item {{ request()->is('invoices') ? 'active' : '' }}" href="{{ route('invoices.index') }}">{{ __('home.Invoices') }}</a>
+                </div>
+            </div>
         </li>
-        <li class="nav-item">
+        <li class="nav-item {{ request()->is('clients*') ? 'active' : '' }}">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseClients" aria-expanded="true" aria-controls="collapseClients">
                 <i class="fas fa-fw fa-user"></i>
                 <span>{{ __('home.Clients') }}</span>
             </a>
-            <div id="collapseClients" class="collapse" aria-labelledby="headingClients" data-parent="#accordionSidebar">
+            <div id="collapseClients" class="collapse {{ request()->is('clients*') ? 'show' : '' }}" aria-labelledby="headingClients" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="{{ route('profile') }}">{{ __('home.Manage Clients') }}</a>
-                   
+                    <a class="collapse-item" href="{{ route('clients.index') }}">{{ __('home.Manage Clients') }}</a>
                 </div>
             </div>
         </li>
@@ -254,11 +259,19 @@
 <script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
 <script src="{{asset('js/Sortable.min.js')}}"></script>
 <script src="{{asset('js/select2.min.js')}}"></script>
+<script src="{{asset('js/datatables.min.js')}}"></script>
 
 <script>
     $(document).ready(function() {
         $('.select2').select2();
+        $('.dataTable').DataTable(
+            {
+                "language": {
+                    "url": "{{ asset('js/datatablesEsp.json') }}"
+                }
+            }
         
+        );
     });
     $.ajaxSetup({
     headers: {

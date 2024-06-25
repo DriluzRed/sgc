@@ -1,6 +1,11 @@
 @extends('layouts.app')
 
 @section('main-content')
+@if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
 <div class="container mt-5">
     <div class="row">
         @foreach($statuses as $status => $label)
@@ -357,10 +362,10 @@
                 .on('click', function() {
                     loadComments(projectId);
                 });
-                var paidAmount = response.invoices.paid.length > 0 ? response.invoices.paid[0].amount : 0;
-                var pendingAmount = response.invoices.pending.length > 0 ? response.invoices.pending[0].amount : 0;
+                var paidAmount = response.invoices && response.invoices.paid && response.invoices.paid.length > 0 ? response.invoices.paid[0].amount : 0;
+                var pendingAmount = response.invoices && response.invoices.pending && response.invoices.pending.length > 0 ? response.invoices.pending[0].amount : 0;
                 var totalAmount = parseFloat(paidAmount) + parseFloat(pendingAmount);
-                var totalInvoices = response.invoices.total > 0 ? response.invoices.total : 0;
+                var totalInvoices = response.invoices && response.invoices.total > 0 ? response.invoices.total : 0;
                 var invoices = `<div class="row">
                     <div class="col">
                         <h5><span class="badge bg-primary text-white">Total de facturas:</span> <span id="totalInvoices"></span></h5>

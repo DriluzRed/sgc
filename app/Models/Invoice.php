@@ -33,5 +33,9 @@ class Invoice extends Model
         return $this->belongsTo('App\Models\Client');
     }
 
+    public function badget()
+    {
+        return $this->belongsTo('App\Models\Badget');
+    }
     
 }

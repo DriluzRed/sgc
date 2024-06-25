@@ -6,7 +6,8 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\InvoiceController;
-
+use App\Http\Controllers\BudgetController;
+use App\Http\Controllers\NotificationsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,6 +31,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('projects', ProjectController::class);
     Route::resource('clients', ClientController::class);
     Route::resource('invoices', InvoiceController::class);
+    Route::resource('budgets', BudgetController::class);
+    Route::resource('notifications', NotificationsController::class);
     Route::post('/projects/{project}/updateStatus', [ProjectController::class, 'updateStatus']);
     Route::get('/projects/{project}/tasks', [ProjectController::class, 'getTasks']);
     Route::post('/tasks/{task}/updateStatus', [TaskController::class, 'updateStatus']);

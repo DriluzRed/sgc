@@ -53,19 +53,16 @@
         <div class="sidebar-heading">
             {{ __('home.Modules') }}
         </div>
-        <li class="nav-item {{ request()->is(['projects*','invoices*']) ? 'active' : '' }}">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProjects" aria-expanded="true" aria-controls="collapseProjects">
+        <li class="nav-item {{ request()->is(['projects*','invoices*','budgets*']) ? 'active' : '' }}">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProjectsInvoices" aria-expanded="true" aria-controls="collapseProjectsInvoices">
                 <i class="fas fa-fw fa-list"></i>
                 <span>{{ __('home.Projects Panel') }}</span>
             </a>
-            <div id="collapseProjects" class="collapse {{ request()->is('projects*') ? 'show' : '' }}" aria-labelledby="headingProjects" data-parent="#accordionSidebar">
+            <div id="collapseProjectsInvoices" class="collapse {{ request()->is(['projects*', 'invoices*']) ? 'show' : '' }}" aria-labelledby="headingProjectsInvoices">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item {{ request()->is('projects') ? 'active' : '' }}" href="{{ route('projects.index') }}">{{ __('home.Projects') }}</a>
-                </div>
-            </div>
-            <div id="collapseProjects" class="collapse {{ request()->is('invoices*') ? 'show' : '' }}" aria-labelledby="headingInvoices" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item {{ request()->is('invoices') ? 'active' : '' }}" href="{{ route('invoices.index') }}">{{ __('home.Invoices') }}</a>
+                    <a class="collapse-item {{ request()->is('budgets') ? 'active' : '' }}" href="{{ route('budgets.index') }}">{{ __('home.Budgets') }}</a>
                 </div>
             </div>
         </li>
@@ -74,9 +71,9 @@
                 <i class="fas fa-fw fa-user"></i>
                 <span>{{ __('home.Clients') }}</span>
             </a>
-            <div id="collapseClients" class="collapse {{ request()->is('clients*') ? 'show' : '' }}" aria-labelledby="headingClients" data-parent="#accordionSidebar">
+            <div id="collapseClients" class="collapse {{ request()->is('clients*') ? 'show' : '' }}" aria-labelledby="headingClients">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="{{ route('clients.index') }}">{{ __('home.Manage Clients') }}</a>
+                    <a class="collapse-item {{ request()->is('clients') ? 'active' : '' }}" href="{{ route('clients.index') }}">{{ __('home.Manage Clients') }}</a>
                 </div>
             </div>
         </li>
@@ -125,47 +122,32 @@
                         <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-bell fa-fw"></i>
                             <!-- Counter - Alerts -->
-                            <span class="badge badge-danger badge-counter">3+</span>
+                            @if($nots_counter > 0)
+                                <span class="badge badge-danger badge-counter">{{$nots_counter}}</span>
+                            @endif
                         </a>
                         <!-- Dropdown - Alerts -->
                         <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
                             <h6 class="dropdown-header">
-                                Alerts Center
+                                Notificaciones
                             </h6>
-                            <a class="dropdown-item d-flex align-items-center" href="#">
-                                <div class="mr-3">
-                                    <div class="icon-circle bg-primary">
-                                        <i class="fas fa-file-alt text-white"></i>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="small text-gray-500">December 12, 2019</div>
-                                    <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                                </div>
-                            </a>
-                            <a class="dropdown-item d-flex align-items-center" href="#">
-                                <div class="mr-3">
-                                    <div class="icon-circle bg-success">
-                                        <i class="fas fa-donate text-white"></i>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="small text-gray-500">December 7, 2019</div>
-                                    $290.29 has been deposited into your account!
-                                </div>
-                            </a>
-                            <a class="dropdown-item d-flex align-items-center" href="#">
-                                <div class="mr-3">
-                                    <div class="icon-circle bg-warning">
-                                        <i class="fas fa-exclamation-triangle text-white"></i>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="small text-gray-500">December 2, 2019</div>
-                                    Spending Alert: We've noticed unusually high spending for your account.
-                                </div>
-                            </a>
-                            <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+                            @foreach($notifications as $notification)
+                                @if($notification->is_read == 0)
+                                    <a class="dropdown-item d-flex align-items-center" href="{{ route('notifications.show', $notification->id) }}">
+                                        <div class="mr-3">
+                                            <div class="icon-circle bg-primary">
+                                                <i class="fas fa-file-alt text-white"></i>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="small text-gray-500">{{$notification->show_date}}</div>
+                                            <span class="font-weight-bold">{{$notification->title}}</span>
+                                        </div>
+                                    </a>
+                                @endif
+                                
+                            @endforeach
+                            <a class="dropdown-item text-center small text-gray-500" href="#">Mostrar todas las notificaciones</a>
                         </div>
                     </li>
 
@@ -260,6 +242,7 @@
 <script src="{{asset('js/Sortable.min.js')}}"></script>
 <script src="{{asset('js/select2.min.js')}}"></script>
 <script src="{{asset('js/datatables.min.js')}}"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
     $(document).ready(function() {

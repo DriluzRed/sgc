@@ -14,6 +14,7 @@
                             <th>R.U.C del Cliente</th>
                             <th>Fecha de Emision</th>
                             <th>Fecha de vencimiento</th>
+                            <th>Estado</th>
                             <th>Monto</th>
                             <th>Acciones</th>
                         </tr>
@@ -28,6 +29,21 @@
                                 <td>{{ $invoice->invoice_date }}</td>
                                 <td>{{ $invoice->due_date }}</td>
                                 <td>{{ $invoice->amount }}</td>
+                                <td>
+                                    @switch($invoice->status)
+                                        @case(\App\Models\Invoice::STATUS_PENDING)
+                                            <span class="badge badge-warning">Pendiente</span>
+                                            @break
+                                        @case(\App\Models\Invoice::STATUS_PAID)
+                                            <span class="badge badge-success">Pagado</span>
+                                            @break
+                                        @case(\App\Models\Invoice::STATUS_CANCELED)
+                                            <span class="badge badge-danger">Cancelado</span>
+                                            @break
+                                        @default
+                                            <span class="badge badge-secondary">Desconocido</span>
+                                    @endswitch
+                                </td>
                                 <td>
                                     <a href="{{ route('invoices.show', $invoice->id) }}" class="btn btn-info">Ver datos</a>
                                     <a href="{{ route('invoices.edit', $invoice->id) }}" class="btn btn-warning">Editar</a>

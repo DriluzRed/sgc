@@ -5,12 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+
 class Invoice extends Model
 {
     use HasFactory;
     CONST STATUS_PENDING = 'pending';
     CONST STATUS_PAID = 'paid';
     CONST STATUS_CANCELED = 'canceled';
+    protected $dates = ['invoice_date', 'due_date'];
     protected $fillable = [
         'project_id',
         'title',

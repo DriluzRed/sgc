@@ -97,13 +97,10 @@
                     @error('invoice_date')
                         has-error
                     @enderror">
-                    <label for="invoice_date">Fecha de Emision</label>
-                    <input type="date" name="invoice_date" id="invoice_date" class="form-control" value="{{ old('invoice_date', $invoice->invoice_date) }}">
+                    <label for="invoice_date">Fecha de Emisión</label>
+                    <input type="date" name="invoice_date" id="invoice_date" class="form-control" value="{{ old('invoice_date', $invoice->invoice_date ? \Carbon\Carbon::parse($invoice->invoice_date)->format('Y-m-d') : '') }}">
                     @error('invoice_date')
-                        <span class="help-block
-                            @error('invoice_date')
-                                has-error
-                            @enderror">
+                        <span class="help-block has-error">
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
@@ -113,7 +110,7 @@
                         has-error
                     @enderror">
                     <label for="due_date">Fecha de Vencimiento</label>
-                    <input type="date" name="due_date" id="due_date" class="form-control" value="{{ old('due_date', $invoice->due_date) }}">
+                    <input type="date" name="due_date" id="due_date" class="form-control" value="{{ old('due_date', $invoice->due_date ? \Carbon\Carbon::parse($invoice->invoice_date)->format('Y-m-d') : '') }}">
                     @error('due_date')
                         <span class="help-block
                             @error('due_date')

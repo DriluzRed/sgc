@@ -50,6 +50,11 @@
                                 </td>
                                 <td>
                                     <a href="{{ route('budgets.edit', $budget->id) }}" class="btn btn-warning">Editar</a>
+                                    <form action="{{ route('budgets.destroy', $budget->id) }}" method="POST" style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger" onclick="return confirm('¿Está seguro de que desea eliminar este presupuesto?')">Eliminar</button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach

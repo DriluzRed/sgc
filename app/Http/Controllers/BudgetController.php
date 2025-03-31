@@ -112,5 +112,15 @@ class BudgetController extends Controller
         return redirect()->route('budgets.index');
     }
 
+    public function destroy($id)
+    {
+        $budget = Budget::find($id);
+        if($budget->status == 'approved'){
+            return redirect()->route('budgets.index')->with('error', 'No puedes eliminar un presupuesto aprobado');
+        }
+        $budget->delete();
+        return redirect()->route('budgets.index');
+    }
+
 
 }

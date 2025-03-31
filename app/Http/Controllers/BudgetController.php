@@ -11,7 +11,9 @@ class BudgetController extends Controller
 {
     public function index()
     {
-        $budgets = Budget::all();
+        $budgets = Budget::whereHas('client', function ($query) {
+            $query->whereNull('deleted_at');
+        })->get();
         return view('pages.budgets.index')->with('budgets', $budgets);
     }
 

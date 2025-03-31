@@ -35,9 +35,10 @@ class Invoice extends Model
         return $this->belongsTo('App\Models\Client');
     }
 
-    public function badget()
+    public function budget()
     {
-        return $this->belongsTo('App\Models\Badget');
+        return $this->belongsTo('App\Models\Budget');
     }
+    
     
 }

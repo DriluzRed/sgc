@@ -27,8 +27,13 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/profile', 'ProfileController@index')->name('profile');
     Route::put('/profile', 'ProfileController@update')->name('profile.update');
 
-
-    Route::resource('projects', ProjectController::class);
+    Route::get('/projects', [ProjectController::class, 'index'])->name('projects.index');
+    Route::get('/projects/create', [ProjectController::class, 'create'])->name('projects.create');
+    Route::post('/projects', [ProjectController::class, 'store'])->name('projects.store');
+    Route::get('/projects/{project}', [ProjectController::class, 'show'])->name('projects.show');
+    Route::get('/projects/{project}/edit', [ProjectController::class, 'edit'])->name('projects.edit');
+    Route::put('/projects/{project}', [ProjectController::class, 'update'])->name('projects.update');
+    Route::delete('/projects/{id}', [ProjectController::class, 'destroy'])->name('projects.destroy');
     Route::resource('clients', ClientController::class);
     Route::resource('invoices', InvoiceController::class);
     Route::resource('budgets', BudgetController::class);

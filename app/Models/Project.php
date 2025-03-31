@@ -41,4 +41,9 @@ class Project extends Model
     {
         return $this->hasMany('App\Models\Invoice');
     }
+
+    public function budgets()
+    {
+        return $this->hasMany('App\Models\Budget');
+    }
 }

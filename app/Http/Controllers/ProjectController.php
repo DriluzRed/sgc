@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Project;
 use App\Models\Client;
 use App\Models\Comment;
+
 class ProjectController extends Controller
 {
     public function index()
@@ -90,5 +91,21 @@ class ProjectController extends Controller
         $comment = Comment::find($comment);
         $comment->delete();
         return response()->json(['message' => 'Comentario eliminado']);
+    }
+
+    public function destroy($id)
+    {
+        $project = Project::find($id);
+        if ($project->status == 'completed') {
+            return redirect()->route('projects.index')->with('error', 'No puedes eliminar un proyecto completado');
+        }
+        if ($project->tasks->count() > 0) {
+            return redirect()->route('projects.index')->with('error', 'No puedes eliminar un proyecto con tareas asignadas');
+        }
+        if ($project->invoices->count() > 0) {
+            return redirect()->route('projects.index')->with('error', 'No puedes eliminar un proyecto con facturas asignadas');
+        }
+        $project->delete();
+        return response()->json(['message' => 'Proyecto eliminado con éxito.']);
     }
 }

@@ -10,7 +10,11 @@ class InvoiceController extends Controller
 {
     public function index()
     {
-        $invoices = Invoice::all();
+        $invoices = Invoice::whereHas('project', function ($query) {
+            $query->whereNull('deleted_at');
+        })->whereHas('client', function ($query) {
+            $query->whereNull('deleted_at');
+        })->get();
         return view('pages.invoices.index')->with('invoices', $invoices);
     }
 

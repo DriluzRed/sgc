@@ -42,6 +42,16 @@ class ClientController extends Controller
 
 
     public function destroy(Client $client){
+        if($client->projects()->count() > 0) {
+            return redirect()->route('clients.index')->with('error', 'No se puede eliminar el cliente porque tiene proyectos asociados.');
+        }
+        if($client->invoices()->count() > 0) {
+            return redirect()->route('clients.index')->with('error', 'No se puede eliminar el cliente porque tiene facturas asociadas.');
+        }
+        if($client->budgets()->count() > 0) {
+            return redirect()->route('clients.index')->with('error', 'No se puede eliminar el cliente porque tiene presupuestos asociados.');
+        }
+
         $client->delete();
         return redirect()->route('clients.index');
     }

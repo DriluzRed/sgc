@@ -14,7 +14,7 @@ class InvoiceController extends Controller
             $query->whereNull('deleted_at');
         })->whereHas('client', function ($query) {
             $query->whereNull('deleted_at');
-        })->get();
+        })->paginate(10);
         return view('pages.invoices.index')->with('invoices', $invoices);
     }
 

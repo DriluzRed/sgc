@@ -8,7 +8,7 @@ use App\Models\Client;
 class ClientController extends Controller
 {
     public function index(){
-        $clients = Client::all();
+        $clients = Client::paginate(10);
         return view('pages.clients.index')->with('clients', $clients);
     }
 

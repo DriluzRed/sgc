@@ -8,6 +8,8 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\BudgetController;
 use App\Http\Controllers\NotificationsController;
+use App\Http\Controllers\IncomeController;
+use App\Http\Controllers\ExpenseController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -46,6 +48,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/comments/{comment}/edit', [ProjectController::class, 'editComment']);
     Route::delete('/comments/{comment}', [ProjectController::class, 'deleteComment']);
     Route::post('/projects/{project}/tasksStore', [TaskController::class, 'store']);
-
+    Route::resource('incomes', IncomeController::class);
+    Route::resource('expenses', ExpenseController::class);
 });
 Auth::routes();

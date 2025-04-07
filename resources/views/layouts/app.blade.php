@@ -63,6 +63,8 @@
                     <a class="collapse-item {{ request()->is('projects') ? 'active' : '' }}" href="{{ route('projects.index') }}">{{ __('home.Projects') }}</a>
                     <a class="collapse-item {{ request()->is('invoices') ? 'active' : '' }}" href="{{ route('invoices.index') }}">{{ __('home.Invoices') }}</a>
                     <a class="collapse-item {{ request()->is('budgets') ? 'active' : '' }}" href="{{ route('budgets.index') }}">{{ __('home.Budgets') }}</a>
+                    <a class="collapse-item {{ request()->is('incomes') ? 'active' : '' }}" href="{{ route('incomes.index') }}">{{ __('Ingresos') }}</a>
+                    <a class="collapse-item {{ request()->is('expenses') ? 'active' : '' }}" href="{{ route('expenses.index') }}">{{ __('Egresos') }}</a>
                 </div>
             </div>
         </li>

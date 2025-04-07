@@ -13,7 +13,7 @@ class BudgetController extends Controller
     {
         $budgets = Budget::whereHas('client', function ($query) {
             $query->whereNull('deleted_at');
-        })->get();
+        })->paginate(10);
         return view('pages.budgets.index')->with('budgets', $budgets);
     }
 
